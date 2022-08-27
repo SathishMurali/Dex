@@ -1,4 +1,4 @@
-package com.nseit.Dex.controller;
+package com.nseit.Dex.services;
 
 import com.nseit.Dex.model.Candidate;
 import com.nseit.Dex.repository.CandidateRepository;
