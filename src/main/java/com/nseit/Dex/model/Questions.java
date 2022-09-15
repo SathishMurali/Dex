@@ -1,13 +1,16 @@
 package com.nseit.Dex.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.List;
 
-@Data
+@Getter
+@Setter
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
@@ -18,7 +21,13 @@ public class Questions {
     @GeneratedValue
     private Integer questionId;
     private String question;
-    private String questionChoice;
-    @ManyToMany(mappedBy = "questionsAsked")
-    private List<Candidate> candidateList;
+    private String correctAnswer;
+
+    @OneToMany(mappedBy = "questionChoices", cascade = CascadeType.ALL)
+    private List<QuestionChoice> choiceList;
+
+    @JsonIgnore
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "subject_id", nullable = false, referencedColumnName = "subjectId")
+    private Subjects subjectSelection;
 }
